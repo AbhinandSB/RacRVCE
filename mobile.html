@@ -38,6 +38,10 @@
         transform: scale(1.1);
       }
 
+     #navhigh{
+       font-size: 32px;
+     }
+
       #navhigh:hover{
         transform:scale(1.2);
         color:white;
@@ -58,7 +62,69 @@
     transform: scale(1.1);
    }
       
+
+
+   .overlay {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.9);
+  overflow-x: hidden;
+  transition: 0.5s;
+}
+
+.overlay-content {
+  position: relative;
+  top: 25%;
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.overlay a {
+  padding: 8px;
+  text-decoration: none;
+  font-size: 36px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.overlay a:hover, .overlay a:focus {
+  color: #f1f1f1;
+}
+
+.overlay .closebtn {
+  position: absolute;
+  top: 20px;
+  right: 45px;
+  font-size: 60px;
+}
+
+@media screen and (max-height: 450px) {
+  .overlay a {font-size: 20px}
+  .overlay .closebtn {
+  font-size: 40px;
+  top: 15px;
+  right: 35px;
+  }
+}
       
+#load{
+    width:100%;
+    height:100%;
+    position:fixed;
+    z-index:9999;
+    background-image:url('/load.gif');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
     </style>
     <title>Rotaract Club of RVCE</title>
     <link rel = "icon" href =  
@@ -67,30 +133,46 @@
 </head>
 <body>
 
+  <div id="load"></div>
+  <div id="contents">
+        
+  </div>
 
 
-<header class="text-gray-700 body-font" id="hd">
-    <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-      <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-        <img src="rlogo.png">
-          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-        </svg>
+
+
+<header class="text-gray-700 body-font" id="hd" style="height:180px">
+    <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center" style="width:280px;padding-left:240;float:left;display:inline-block">
+      <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0" >
+        <img src="rlogo.png" style="padding-left:90px">
+          
         <span class="ml-3 text-xl"></span>
       </a>
+      
       <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center" style="color:white;" >
-        <a class="mr-5 hover:text-gray-900" id="navhigh"  style="color:#f50136;">Home</a>
-        <a href="mabout.html" class="mr-5 hover:text-gray-900" id="navhigh">About</a>
-        <a href="mupcoming.html" class="mr-5 hover:text-gray-900" id="navhigh">Upcoming</a>
-        <a href="events.html" class="mr-5 hover:text-gray-900" id="navhigh">Events</a>
-        <a class="mr-5 hover:text-gray-900" id="navhigh">Experience</a>
-        <a class="mr-5 hover:text-gray-900">Board</a>
+     
+        <div id="myNav" class="overlay">
+          <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="padding-bottom:0px;padding-left:90%">&times;</a>
+          <div class="overlay-content" style="margin-top: 10px;">
+            <a class="mr-5 hover:text-gray-900" id="navhigh"  style="color:#f50136;">Home</a>
+            <a href="mabout.html" class="mr-5 hover:text-gray-900" id="navhigh">About</a>
+            <a href="mupcoming.html" class="mr-5 hover:text-gray-900" id="navhigh">Upcoming</a>
+            <a href="events.html" class="mr-5 hover:text-gray-900" id="navhigh">Events</a>
+            <a class="mr-5 hover:text-gray-900" id="navhigh">Experience</a>
+            <a class="mr-5 hover:text-gray-900">Board</a>
+            <a href="https://www.rotary.org/en" style="padding-bottom: 4px;"><span style="font-size: 32px;">Rotary</span></a>
+              
+       
+          </div>
+        </div>
       </nav>
-      <button class="inline-flex items-center bg-gray-200 border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0"><a href="https://www.rotary.org/en">Rotary</a>
-        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
-          <path d="M5 12h14M12 5l7 7-7 7"></path>
-        </svg>
-      </button>
+
+     
+
+      
+
     </div> 
+    <div style="font-size:30px;cursor:pointer;display: inline-block; width:50px;padding-top:80px;padding-left:30px" onclick="openNav()">&#9776;</div>
   </header>
  
  
@@ -384,6 +466,28 @@ if (screen.width > 800) {
   document.body.blur();
       
   window.location = "index.html";
+}
+
+function openNav() {
+  document.getElementById("myNav").style.width = "100%";
+}
+
+function closeNav() {
+  document.getElementById("myNav").style.width = "0%";
+}
+
+
+document.onreadystatechange = function () {
+  var state = document.readyState
+  if (state == 'interactive') {
+       document.getElementById('contents').style.visibility="hidden";
+  } else if (state == 'complete') {
+      setTimeout(function(){
+         document.getElementById('interactive');
+         document.getElementById('load').style.visibility="hidden";
+         document.getElementById('contents').style.visibility="visible";
+      },1000);
+  }
 }
 
 </script>
